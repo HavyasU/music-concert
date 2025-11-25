@@ -1,12 +1,14 @@
 import express from "express";
+import { homeRouter } from "./routes/homeRoutes.js";
 
-
-const app = express();
+const server = express();
 const port = 8000;
 
 
+server.use('/', homeRouter);
 
-const listenCB = () => {
-    console.log("Server is Listning!");
+const serverListen = () => {
+    console.log("Server is Runnning!");
 };
-app.listen(port, listenCB);
+
+server.listen(port, serverListen);

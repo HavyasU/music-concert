@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Webpage</title>
+
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #0f0f0f;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px;
+            background: #1a1a1a;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin-top: 40px;
+            background: #1c1c1c;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.06);
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #00c8ff;
+        }
+
+        p {
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #dcdcdc;
+        }
+
+        button {
+            background: #00c8ff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #008db1;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>My First HTML + CSS Page</header>
+
+    <div class="container">
+        <h2>Hello Havyas 👋</h2>
+        <p>
+            This is a simple webpage created using HTML and CSS.
+            You can modify the design, change the content, or even extend it into a full website.
+        </p>
+
+        <button onclick="alert('Button Clicked!')">Click Me</button>
+    </div>
+
+</body>
+
+</html>
