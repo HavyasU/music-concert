@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-const addressSchema = mongoose.Schema(
+const addressSchema = new mongoose.Schema(
     {
         city: { type: String },
         state: { type: String },
@@ -9,7 +9,7 @@ const addressSchema = mongoose.Schema(
     }
 );
 
-const venueSchema = mongoose.Schema({
+const venueSchema = new mongoose.Schema({
     name: "String",
     Address: addressSchema
 }, {

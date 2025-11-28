@@ -48,10 +48,6 @@ export const getVenueById = async (req, res) => {
 
 
 
-
-
-
-
 export const deleteVenue = async (req, res) => {
     try {
         const { venueID } = req.body;

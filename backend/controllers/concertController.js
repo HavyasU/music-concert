@@ -31,6 +31,17 @@ export const getConcerts = async (req, res) => {
     }
 };
 
+export const getConcertById = async (req, res) => {
+    try {
+        const { concertID } = req.body;
+        const fieldToPopulate = ["artists", "sponsors", "playlist", "venues"];
+        const concert = await concertModel.findByIdAndUpdate(concertID).populate(fieldToPopulate);
+        return sendSuccessResponse(res, 200, "Concert Data Fetched.", { concert });
+    } catch (error) {
+        console.log("Error in getConcertById Controller : ", error);
+        return sendErrorResponse(res, 500, "Server Error", error);
+    }
+};
 
 export const addConcertSongs = async (req, res) => {
     try {
@@ -93,10 +104,6 @@ export const addConcertArtist = async (req, res) => {
         return sendErrorResponse(res, 500, "Internal Server Error", error);
     }
 };
-
-
-
-
 
 
 export const deleteConcert = async (req, res) => {
