@@ -10,14 +10,6 @@ export const registerAttendee = (req, res) => {
             return sendErrorResponse(res, null, "All fields are required");
         }
 
-
-
-
-
-
-
-
-
     } catch (error) {
 
     }

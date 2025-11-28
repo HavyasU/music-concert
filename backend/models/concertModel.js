@@ -11,6 +11,8 @@ const concertSchema = new mongoose.Schema({
         type: String,
         enum: ["solo", "band"]
     },
+    concertDate: Date,
+    concertTime: Date,
     artists: [{ type: mongoose.Types.ObjectId, ref: 'artists' }],
     sponsors: [{ type: mongoose.Types.ObjectId, ref: 'sponsors' }],
     playlist: [{ type: mongoose.Types.ObjectId, ref: 'songs' }],

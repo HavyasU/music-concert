@@ -7,7 +7,7 @@ export const sendSuccessResponse = (res, status = 200, message = "", data = {}) 
 };
 
 
-export const sendErrorResponse = (res, errors = null, message = "", status = 500) => {
+export const sendErrorResponse = (res, status = 500, message = "", errors = null,) => {
     return res.status(status).json({
         success: false,
         message,
