@@ -96,3 +96,20 @@ export const addConcertArtist = async (req, res) => {
 
 
 
+
+
+
+export const deleteConcert = async (req, res) => {
+    try {
+        const { concertID } = req.body;
+
+        const concertDeleted = await concertModel.findByIdAndDelete(concertID);
+        if (!concertDeleted) {
+            return sendErrorResponse(res, 404, "Concert Not Found", error);
+        }
+        return sendSuccessResponse(res, 200, "Concert Deleted");
+    } catch (error) {
+        console.log("Error while Deleting Concert ", error);
+        return sendErrorResponse(res, 500, "Internal Server Error", error);
+    }
+};

@@ -58,11 +58,11 @@ export const deleteVenue = async (req, res) => {
 
         const venueDeleted = await venueModel.findByIdAndDelete(venueID);
         if (!venueDeleted) {
-            return sendErrorResponse(res, 404, "Song Not Found", error);
+            return sendErrorResponse(res, 404, "Venue Not Found", error);
         }
-        return sendSuccessResponse(res, 200, "Song Deleted");
+        return sendSuccessResponse(res, 200, "Venue Deleted");
     } catch (error) {
-        console.log("Error while Deleting song ", error);
+        console.log("Error while Deleting Venue ", error);
         return sendErrorResponse(res, 500, "Internal Server Error", error);
     }
 };
