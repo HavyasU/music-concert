@@ -418,7 +418,10 @@ const ManageTab = () => {
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-5 overflow-y-auto flex-1">
+            <form
+              onSubmit={handleSubmit}
+              className="p-6 space-y-5 overflow-y-auto flex-1"
+            >
               <RenderFormFields
                 resource={resource}
                 form={form}
@@ -450,7 +453,14 @@ const ManageTab = () => {
   );
 };
 
-const FormSelect = ({ label, value, onChange, options, optionLabel = "name", ...props }) => (
+const FormSelect = ({
+  label,
+  value,
+  onChange,
+  options,
+  optionLabel = "name",
+  ...props
+}) => (
   <div>
     <label className="block text-sm font-semibold text-gray-700 mb-2">
       {label}
@@ -501,7 +511,7 @@ const FormTextArea = ({ label, value, onChange, ...props }) => (
   </div>
 );
 
-function RenderFormFields({ resource, form, setForm }) {
+function RenderFormFields({ resource, form, setForm, venues = [], artists = [], concerts = [] }) {
   if (resource === "concerts") {
     return (
       <>
@@ -513,40 +523,44 @@ function RenderFormFields({ resource, form, setForm }) {
           placeholder="Enter concert name"
           required
         />
-        <FormInput
-          label="Concert Date"
-          type="date"
-          name="concertDate"
-          value={form.concertDate ? form.concertDate.split("T")[0] : ""}
-          onChange={(e) => setForm({ ...form, concertDate: e.target.value })}
-          required
-        />
-        <FormInput
-          label="Concert Time"
-          type="time"
-          name="concertTime"
-          value={form.concertTime || ""}
-          onChange={(e) => setForm({ ...form, concertTime: e.target.value })}
-        />
-        <FormInput
-          label="Ticket Price"
-          type="number"
-          name="ticketPrice"
-          value={form.ticketPrice || ""}
-          onChange={(e) =>
-            setForm({ ...form, ticketPrice: Number(e.target.value) })
-          }
-          placeholder="0.00"
-          step="0.01"
-          required
-        />
-        <FormInput
-          label="Venue ID"
-          name="venue"
-          value={form.venue || ""}
-          onChange={(e) => setForm({ ...form, venue: e.target.value })}
-          placeholder="Enter venue ID"
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <FormInput
+            label="Concert Date"
+            type="date"
+            name="concertDate"
+            value={form.concertDate ? form.concertDate.split("T")[0] : ""}
+            onChange={(e) => setForm({ ...form, concertDate: e.target.value })}
+            required
+          />
+          <FormInput
+            label="Concert Time"
+            type="time"
+            name="concertTime"
+            value={form.concertTime || ""}
+            onChange={(e) => setForm({ ...form, concertTime: e.target.value })}
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <FormInput
+            label="Ticket Price"
+            type="number"
+            name="ticketPrice"
+            value={form.ticketPrice || ""}
+            onChange={(e) =>
+              setForm({ ...form, ticketPrice: Number(e.target.value) })
+            }
+            placeholder="0.00"
+            step="0.01"
+            required
+          />
+          <FormSelect
+            label="Venue"
+            value={form.venue || ""}
+            onChange={(e) => setForm({ ...form, venue: e.target.value })}
+            options={venues}
+            optionLabel="name"
+          />
+        </div>
         <FormTextArea
           label="Description"
           name="description"
