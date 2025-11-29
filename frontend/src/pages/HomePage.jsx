@@ -135,12 +135,12 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 overflow-hidden">
+    <div className="min-h-screen bg-black overflow-hidden">
       {/* Hero Section */}
       <Hero />
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-b from-indigo-50 to-blue-50 px-8 section-title">
+      <section className="py-20 bg-gradient-to-b from-black via-slate-950 to-black px-8 section-title">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[

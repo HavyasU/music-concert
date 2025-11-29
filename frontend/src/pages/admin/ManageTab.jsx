@@ -2,6 +2,7 @@
 import { Button } from "../../components/ui/button";
 import { apiCall } from "../../lib/api";
 import { X, Plus, Edit2, Trash2, Search, RefreshCw } from "lucide-react";
+import { toast } from "react-toastify";
 
 const ManageTab = () => {
   const [resource, setResource] = useState("concerts");
@@ -13,8 +14,6 @@ const ManageTab = () => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({});
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [venues, setVenues] = useState([]);
   const [artists, setArtists] = useState([]);
   const [concerts, setConcerts] = useState([]);
@@ -24,7 +23,6 @@ const ManageTab = () => {
     fetchRelatedData();
     setQuery("");
     setPage(1);
-    setError("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resource]);
 
@@ -50,13 +48,12 @@ const ManageTab = () => {
       }
     } catch (err) {
       console.error("Error fetching related data:", err);
+      // Don't show toast for this as it's secondary data
     }
   };
-
   const fetchItems = async () => {
     try {
       setLoading(true);
-      setError("");
       let url = "/" + resource;
       if (query) url += "?q=" + encodeURIComponent(query);
       const resp = await apiCall(url);
@@ -64,7 +61,10 @@ const ManageTab = () => {
       setItems(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error loading items:", err);
-      setError("Failed to load items");
+      toast.error(err.message || "Failed to load items", {
+        position: "top-right",
+        autoClose: 3000,
+      });
       setItems([]);
     } finally {
       setLoading(false);
@@ -74,14 +74,12 @@ const ManageTab = () => {
   const openCreate = () => {
     setEditing(null);
     setForm({});
-    setError("");
     setShowForm(true);
   };
 
   const openEdit = (item) => {
     setEditing(item);
     setForm({ ...item });
-    setError("");
     setShowForm(true);
   };
 
@@ -89,25 +87,32 @@ const ManageTab = () => {
     if (!window.confirm("Are you sure you want to delete this item?")) return;
     try {
       await apiCall(`/${resource}/${id}`, { method: "DELETE" });
-      setSuccess("Item deleted successfully");
-      setTimeout(() => setSuccess(""), 3000);
+      toast.success("Item deleted successfully", {
+        position: "top-right",
+        autoClose: 3000,
+      });
       fetchItems();
     } catch (err) {
       console.error("Delete failed", err);
-      setError("Failed to delete item");
+      toast.error(err.message || "Failed to delete item", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setError("");
       if (editing && editing._id) {
         await apiCall(`/${resource}/${editing._id}`, {
           method: "PUT",
           body: JSON.stringify(form),
         });
-        setSuccess("Item updated successfully");
+        toast.success("Item updated successfully", {
+          position: "top-right",
+          autoClose: 3000,
+        });
       } else {
         const createUrl =
           resource === "artists" || resource === "concerts"
@@ -117,14 +122,19 @@ const ManageTab = () => {
           method: "POST",
           body: JSON.stringify(form),
         });
-        setSuccess("Item created successfully");
+        toast.success("Item created successfully", {
+          position: "top-right",
+          autoClose: 3000,
+        });
       }
-      setTimeout(() => setSuccess(""), 3000);
       setShowForm(false);
       fetchItems();
     } catch (err) {
       console.error("Save failed", err);
-      setError(err.message || "Failed to save item");
+      toast.error(err.message || "Failed to save item", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -180,36 +190,7 @@ const ManageTab = () => {
 
       {/* Main Content */}
       <main className="lg:col-span-3">
-        {/* Alerts */}
-        {error && (
-          <div className="mb-4 p-4 bg-red-50 border-l-4 border-red-600 rounded-lg text-red-800 flex justify-between items-start">
-            <div className="flex-1">
-              <p className="font-bold text-red-900">Error</p>
-              <p className="text-sm mt-1">{error}</p>
-            </div>
-            <button
-              onClick={() => setError("")}
-              className="text-red-600 hover:text-red-800 ml-2"
-            >
-              <X size={18} />
-            </button>
-          </div>
-        )}
-        {success && (
-          <div className="mb-4 p-4 bg-green-50 border-l-4 border-green-600 rounded-lg text-green-800 flex justify-between items-start">
-            <div className="flex-1">
-              <p className="font-bold text-green-900">Success</p>
-              <p className="text-sm mt-1">{success}</p>
-            </div>
-            <button
-              onClick={() => setSuccess("")}
-              className="text-green-600 hover:text-green-800 ml-2"
-            >
-              <X size={18} />
-            </button>
-          </div>
-        )}
-
+        {" "}
         {/* Toolbar */}
         <div className="mb-6 bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
           <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
@@ -261,7 +242,6 @@ const ManageTab = () => {
             </div>
           </div>
         </div>
-
         {/* Table */}
         <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
           {loading ? (
