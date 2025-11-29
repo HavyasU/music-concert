@@ -666,20 +666,22 @@ function RenderFormFields({
           placeholder="Enter sponsor name"
           required
         />
-        <FormInput
-          label="Type"
-          name="type"
-          value={form.type || ""}
-          onChange={(e) => setForm({ ...form, type: e.target.value })}
-          placeholder="e.g., Gold, Silver, Bronze"
-        />
-        <FormInput
-          label="Website"
-          name="website"
-          value={form.website || ""}
-          onChange={(e) => setForm({ ...form, website: e.target.value })}
-          placeholder="https://example.com"
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <FormInput
+            label="Sponsorship Tier"
+            name="type"
+            value={form.type || ""}
+            onChange={(e) => setForm({ ...form, type: e.target.value })}
+            placeholder="e.g., Gold, Silver, Bronze"
+          />
+          <FormInput
+            label="Website"
+            name="website"
+            value={form.website || ""}
+            onChange={(e) => setForm({ ...form, website: e.target.value })}
+            placeholder="https://example.com"
+          />
+        </div>
       </>
     );
   }
@@ -695,27 +697,31 @@ function RenderFormFields({
           placeholder="Enter product name"
           required
         />
-        <FormInput
-          label="Price"
-          type="number"
-          name="price"
-          value={form.price || ""}
-          onChange={(e) => setForm({ ...form, price: Number(e.target.value) })}
-          placeholder="0.00"
-          step="0.01"
-          required
-        />
-        <FormInput
-          label="Stock Quantity"
-          type="number"
-          name="stockQuantity"
-          value={form.stockQuantity || ""}
-          onChange={(e) =>
-            setForm({ ...form, stockQuantity: Number(e.target.value) })
-          }
-          placeholder="0"
-          required
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <FormInput
+            label="Price ($)"
+            type="number"
+            name="price"
+            value={form.price || ""}
+            onChange={(e) =>
+              setForm({ ...form, price: Number(e.target.value) })
+            }
+            placeholder="0.00"
+            step="0.01"
+            required
+          />
+          <FormInput
+            label="Stock Quantity"
+            type="number"
+            name="stockQuantity"
+            value={form.stockQuantity || ""}
+            onChange={(e) =>
+              setForm({ ...form, stockQuantity: Number(e.target.value) })
+            }
+            placeholder="0"
+            required
+          />
+        </div>
       </>
     );
   }
@@ -731,21 +737,23 @@ function RenderFormFields({
           placeholder="Enter song title"
           required
         />
-        <FormInput
-          label="Artist"
-          name="artist"
-          value={form.artist || ""}
-          onChange={(e) => setForm({ ...form, artist: e.target.value })}
-          placeholder="Enter artist name"
-          required
-        />
-        <FormInput
-          label="Genre"
-          name="genre"
-          value={form.genre || ""}
-          onChange={(e) => setForm({ ...form, genre: e.target.value })}
-          placeholder="Enter genre"
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <FormInput
+            label="Artist"
+            name="artist"
+            value={form.artist || ""}
+            onChange={(e) => setForm({ ...form, artist: e.target.value })}
+            placeholder="Enter artist name"
+            required
+          />
+          <FormInput
+            label="Genre"
+            name="genre"
+            value={form.genre || ""}
+            onChange={(e) => setForm({ ...form, genre: e.target.value })}
+            placeholder="Enter genre"
+          />
+        </div>
         <FormInput
           label="Duration (seconds)"
           type="number"
