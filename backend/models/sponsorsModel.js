@@ -1,16 +1,14 @@
 import mongoose from "mongoose";
 
-
-const sponsorsSchema = new mongoose.Schema({
-    name: "String",
-    amount: Number
+const sponsorSchema = new mongoose.Schema({
+    name: { type: String, required: true, unique: true },
+    category: String,
+    website: String,
+    logo: String
 }, {
     timestamps: true
 });
 
+const sponsorModel = mongoose.model('sponsors', sponsorSchema);
 
-const sponsorsModel = mongoose.model('sponsors', sponsorsSchema);
-
-
-
-export default sponsorsModel;
+export default sponsorModel;
