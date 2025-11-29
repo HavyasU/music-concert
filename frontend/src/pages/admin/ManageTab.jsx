@@ -511,7 +511,14 @@ const FormTextArea = ({ label, value, onChange, ...props }) => (
   </div>
 );
 
-function RenderFormFields({ resource, form, setForm, venues = [], artists = [], concerts = [] }) {
+function RenderFormFields({
+  resource,
+  form,
+  setForm,
+  venues = [],
+  artists = [],
+  concerts = [],
+}) {
   if (resource === "concerts") {
     return (
       <>
@@ -583,25 +590,27 @@ function RenderFormFields({ resource, form, setForm, venues = [], artists = [], 
           placeholder="Enter artist name"
           required
         />
-        <FormInput
-          label="Type"
-          name="type"
-          value={form.type || ""}
-          onChange={(e) => setForm({ ...form, type: e.target.value })}
-          placeholder="e.g., Solo Artist, Band"
-        />
-        <FormInput
-          label="Genres (comma-separated)"
-          name="genres"
-          value={form.genres ? form.genres.join(", ") : ""}
-          onChange={(e) =>
-            setForm({
-              ...form,
-              genres: e.target.value.split(",").map((s) => s.trim()),
-            })
-          }
-          placeholder="e.g., Rock, Pop, Jazz"
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <FormInput
+            label="Type"
+            name="type"
+            value={form.type || ""}
+            onChange={(e) => setForm({ ...form, type: e.target.value })}
+            placeholder="e.g., Solo Artist, Band"
+          />
+          <FormInput
+            label="Genres (comma-separated)"
+            name="genres"
+            value={form.genres ? form.genres.join(", ") : ""}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                genres: e.target.value.split(",").map((s) => s.trim()),
+              })
+            }
+            placeholder="e.g., Rock, Pop, Jazz"
+          />
+        </div>
         <FormTextArea
           label="Biography"
           name="bio"
